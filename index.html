@@ -20,6 +20,13 @@
         background-size: cover;
         background-position: center;
       }
+      .blur-load.loaded > img {
+        opacity: 1;
+      }
+      .blur-load > img {
+        opacity: 0;
+        transition: opacity 200ms ease-in-out;
+      }
     </style>
   </head>
   <body style="margin: 0">
@@ -61,5 +68,21 @@
         <img src="imgs/img12.jpg" loading="lazy" />
       </div>
     </div>
+    <script>
+      const blurDivs = document.querySelectorAll(".blur-load");
+      blurDivs.forEach((div) => {
+        const img = div.querySelector("img");
+
+        function loaded() {
+          // show img
+          div.classList.add("loaded");
+        }
+        if (img.complete) {
+          loaded();
+        } else {
+          img.addEventListener("load", loaded);
+        }
+      });
+    </script>
   </body>
 </html>
